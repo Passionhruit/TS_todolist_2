@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
+import DoneToDos from "./components/DoneToDos";
+import WorkingToDos from "./components/WorkingToDos";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -50,35 +52,26 @@ function App() {
 
   // doneList 로 이동
   const doneList = (id) => {
-    setList((updatedList) => {
-      const movedList = updatedList.map((value) => {
-        if (value.id === id) {
-          // id가 일치하는 updated.List의 value의 isDone을 true로 리턴
-          return {
-            ...value,
-            isDone: true,
-          };
-        }
-        return value;
-      });
-      return movedList;
-    });
+    setList((updatedList) =>
+      updatedList.map((value) => ({
+        ...value,
+        isDone: value.id === id ? true : value.isDone, // value.id가 id 와 일치하면 true, 아니라면 기존의 값으로 변경
+      }))
+    ); // 그 값을 setList 로 입력
   };
 
   // workingList 로 이동
   const workingList = (id) => {
-    setList((updatedList) => {
-      const movedList = updatedList.map((value) => {
-        if (value.id === id) {
-          return {
-            ...value,
-            isDone: false,
-          };
-        }
-        return value;
-      });
-      return movedList;
-    });
+    setList((updatedList) =>
+      updatedList.map((value) => ({
+        ...value,
+        isDone: value.id === id ? false : value.isDone,
+      }))
+    );
+  };
+
+  const checkId = (id) => {
+    alert(`${id}`);
   };
 
   return (
@@ -103,24 +96,12 @@ function App() {
             {list.map((value) => {
               if (value.isDone === false) {
                 return (
-                  <li key={value.id} className="listStyle">
-                    <h3 className="titleStyle">{value.title}</h3>
-                    <p className="detailStyle">{value.detail}</p>
-                    <button
-                      onClick={() => deleteList(value.id)}
-                      className="btnStyle"
-                    >
-                      X
-                    </button>
-                    <button
-                      onClick={() =>
-                        doneList(value.id, value.title, value.detail)
-                      }
-                      className="btnStyle"
-                    >
-                      완료
-                    </button>
-                  </li>
+                  <WorkingToDos
+                    value={value}
+                    deleteList={deleteList}
+                    doneList={doneList}
+                    checkId={checkId}
+                  />
                 );
               }
               return null;
@@ -131,24 +112,12 @@ function App() {
             {list.map((value) => {
               if (value.isDone === true) {
                 return (
-                  <li key={value.id} className="listStyle">
-                    <h3 className="titleStyle">{value.title}</h3>
-                    <p className="detailStyle">{value.detail}</p>
-                    <button
-                      onClick={() => deleteList(value.id)}
-                      className="btnStyle"
-                    >
-                      X
-                    </button>
-                    <button
-                      onClick={() =>
-                        workingList(value.id, value.title, value.detail)
-                      }
-                      className="btnStyle"
-                    >
-                      진행중
-                    </button>
-                  </li>
+                  <DoneToDos
+                    value={value}
+                    deleteList={deleteList}
+                    workingList={workingList}
+                    checkId={checkId}
+                  />
                 );
               }
               return null;
