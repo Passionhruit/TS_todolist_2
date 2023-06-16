@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import DoneToDos from "./components/DoneToDos";
-import WorkingToDos from "./components/WorkingToDos";
+import ToDos from "./components/ToDos";
 
 function App() {
   const [title, setTitle] = useState("");
@@ -51,26 +50,14 @@ function App() {
     return updatedList;
   };
 
-  //doneList 로 이동
-  const doneList = (id, title, note) => {
+  //doneList, workingList 로 이동
+  const moveList = (id, title, note, isDone) => {
     const updatedList = deleteList(id);
     const newDoneList = {
       id: updatedList.length + 1,
       title: title,
       note: note,
-      isDone: true,
-    };
-    setList([...updatedList, newDoneList]);
-  };
-
-  //workingList로 이동
-  const workingList = (id, title, note) => {
-    const updatedList = deleteList(id);
-    const newDoneList = {
-      id: updatedList.length + 1,
-      title: title,
-      note: note,
-      isDone: false,
+      isDone: isDone ? false : true,
     };
     setList([...updatedList, newDoneList]);
   };
@@ -121,11 +108,11 @@ function App() {
             {list.map((value) => {
               if (value.isDone === false) {
                 return (
-                  <WorkingToDos
+                  <ToDos
                     key={value.id}
                     value={value}
                     deleteList={deleteList}
-                    doneList={doneList}
+                    moveList={moveList}
                     checkId={checkId}
                   />
                 );
@@ -138,11 +125,11 @@ function App() {
             {list.map((value) => {
               if (value.isDone === true) {
                 return (
-                  <DoneToDos
+                  <ToDos
                     key={value.id}
                     value={value}
                     deleteList={deleteList}
-                    workingList={workingList}
+                    moveList={moveList}
                     checkId={checkId}
                   />
                 );

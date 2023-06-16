@@ -1,4 +1,4 @@
-const WorkingToDos = ({ value, deleteList, doneList, checkId }) => {
+const ToDos = ({ value, deleteList, moveList, checkId }) => {
   return (
     <li key={value.id} className="listStyle">
       <h3 className="titleStyle">{value.title}</h3>
@@ -7,14 +7,16 @@ const WorkingToDos = ({ value, deleteList, doneList, checkId }) => {
         X
       </button>
       <button
-        onClick={() => doneList(value.id, value.title, value.note)}
+        onClick={() =>
+          moveList(value.id, value.title, value.note, value.isDone)
+        }
         className="btnStyle"
       >
-        완료
+        {value.isDone ? "취소" : "완료"}
       </button>
       {/* <button onClick={() => checkId(value.id)}>아이디</button> */}
     </li>
   );
 };
 
-export default WorkingToDos;
+export default ToDos;
