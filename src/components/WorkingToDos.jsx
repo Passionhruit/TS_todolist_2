@@ -1,13 +1,13 @@
-const WorkingToDos = ({ value, deleteList, doneList, che }) => {
+const WorkingToDos = ({ value, deleteList, doneList, checkId }) => {
   return (
     <li key={value.id} className="listStyle">
       <h3 className="titleStyle">{value.title}</h3>
-      <p className="detailStyle">{value.detail}</p>
+      <p className="noteStyle">{value.note}</p>
       <button onClick={() => deleteList(value.id)} className="btnStyle">
         X
       </button>
       <button
-        onClick={() => doneList(value.id, value.title, value.detail)}
+        onClick={() => doneList(value.id, value.title, value.note)}
         className="btnStyle"
       >
         완료

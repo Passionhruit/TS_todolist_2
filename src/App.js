@@ -5,29 +5,29 @@ import WorkingToDos from "./components/WorkingToDos";
 
 function App() {
   const [title, setTitle] = useState("");
-  const [detail, setDetail] = useState("");
+  const [note, setNote] = useState("");
 
   const [list, setList] = useState([
-    { id: 1, title: "수학", detail: "구구단 외우기", isDone: false },
-    { id: 2, title: "국어", detail: "받아쓰기", isDone: false },
-    { id: 3, title: "영어", detail: "단어 외우기", isDone: true },
-    { id: 4, title: "과학", detail: "주기율표 외우기", isDone: true },
+    { id: 1, title: "수학", note: "구구단 외우기", isDone: false },
+    { id: 2, title: "국어", note: "받아쓰기", isDone: false },
+    { id: 3, title: "영어", note: "단어 외우기", isDone: true },
+    { id: 4, title: "과학", note: "실험하기", isDone: true },
   ]);
 
   const titleChangeHandler = (e) => {
     setTitle(e.target.value);
   };
 
-  const detailChangeHandler = (e) => {
-    setDetail(e.target.value);
+  const noteChangeHandler = (e) => {
+    setNote(e.target.value);
   };
 
   const addList = (e) => {
-    if (title.length !== 0 && detail.length !== 0) {
+    if (title.length !== 0 && note.length !== 0) {
       const newList = {
         id: list.length + 1,
         title,
-        detail,
+        note,
         isDone: false,
       };
       setList([...list, newList]);
@@ -35,8 +35,8 @@ function App() {
       alert("제목과 내용을 입력해주세요.");
     }
     e.preventDefault(); // 폼 제출시 새로고침을 막음
-    setTitle(""); // Title, Detail 빈 값으로
-    setDetail("");
+    setTitle(""); // Title, Note 빈 값으로
+    setNote("");
   };
 
   // 요소 삭제
@@ -55,12 +55,13 @@ function App() {
     setList((updatedList) =>
       updatedList.map((value) => ({
         ...value,
-        isDone: value.id === id ? true : value.isDone, // value.id가 id 와 일치하면 true, 아니라면 기존의 값으로 변경
+        isDone: value.id === id ? true : value.isDone, // value.id가 id 와 일치하면 true, 아니라면 기존의 값으로 유지
       }))
     ); // 그 값을 setList 로 입력
   };
 
-  // workingList 로 이동
+  //workingList 로 이동
+
   const workingList = (id) => {
     setList((updatedList) =>
       updatedList.map((value) => ({
@@ -84,8 +85,8 @@ function App() {
             <input type="text" value={title} onChange={titleChangeHandler} />
           </span>
           <span className="spanStyle">
-            Detail{"\u00A0"}
-            <input type="text" value={detail} onChange={detailChangeHandler} />
+            Note{"\u00A0"}
+            <input type="text" value={note} onChange={noteChangeHandler} />
           </span>
           <button onClick={addList}>Add</button>
         </form>

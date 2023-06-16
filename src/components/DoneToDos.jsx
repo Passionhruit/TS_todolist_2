@@ -2,12 +2,12 @@ const DoneToDos = ({ value, deleteList, workingList, checkId }) => {
   return (
     <li key={value.id} className="listStyle">
       <h3 className="titleStyle">{value.title}</h3>
-      <p className="detailStyle">{value.detail}</p>
+      <p className="noteStyle">{value.note}</p>
       <button onClick={() => deleteList(value.id)} className="btnStyle">
         X
       </button>
       <button
-        onClick={() => workingList(value.id, value.title, value.detail)}
+        onClick={() => workingList(value.id, value.title, value.note)}
         className="btnStyle"
       >
         진행중
