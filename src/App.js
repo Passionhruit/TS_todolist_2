@@ -48,28 +48,52 @@ function App() {
         return { ...value, id: i + 1 };
       });
     setList(updatedList);
+    return updatedList;
+  };
+
+  //doneList 로 이동
+  const doneList = (id, title, note) => {
+    const updatedList = deleteList(id);
+    const newDoneList = {
+      id: updatedList.length + 1,
+      title: title,
+      note: note,
+      isDone: true,
+    };
+    setList([...updatedList, newDoneList]);
+  };
+
+  //workingList로 이동
+  const workingList = (id, title, note) => {
+    const updatedList = deleteList(id);
+    const newDoneList = {
+      id: updatedList.length + 1,
+      title: title,
+      note: note,
+      isDone: false,
+    };
+    setList([...updatedList, newDoneList]);
   };
 
   // doneList 로 이동
-  const doneList = (id) => {
-    setList((updatedList) =>
-      updatedList.map((value) => ({
-        ...value,
-        isDone: value.id === id ? true : value.isDone, // value.id가 id 와 일치하면 true, 아니라면 기존의 값으로 유지
-      }))
-    ); // 그 값을 setList 로 입력
-  };
+  // const doneList = (id) => {
+  //   setList((updatedList) =>
+  //     updatedList.map((value) => ({
+  //       ...value,
+  //       isDone: value.id === id ? true : value.isDone, // value.id가 id 와 일치하면 true, 아니라면 기존의 값으로 유지
+  //     }))
+  //   ); // 그 값을 setList 로 입력
+  // };
 
-  //workingList 로 이동
-
-  const workingList = (id) => {
-    setList((updatedList) =>
-      updatedList.map((value) => ({
-        ...value,
-        isDone: value.id === id ? false : value.isDone,
-      }))
-    );
-  };
+  // //workingList 로 이동
+  // const workingList = (id) => {
+  //   setList((updatedList) =>
+  //     updatedList.map((value) => ({
+  //       ...value,
+  //       isDone: value.id === id ? false : value.isDone,
+  //     }))
+  //   );
+  // };
 
   const checkId = (id) => {
     alert(`${id}`);
@@ -98,6 +122,7 @@ function App() {
               if (value.isDone === false) {
                 return (
                   <WorkingToDos
+                    key={value.id}
                     value={value}
                     deleteList={deleteList}
                     doneList={doneList}
@@ -114,6 +139,7 @@ function App() {
               if (value.isDone === true) {
                 return (
                   <DoneToDos
+                    key={value.id}
                     value={value}
                     deleteList={deleteList}
                     workingList={workingList}
