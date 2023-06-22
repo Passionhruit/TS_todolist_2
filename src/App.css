@@ -6,9 +6,11 @@
 body {
   background-color: #acb1d6;
 }
+
 li {
   list-style: none;
 }
+
 a {
   text-decoration: none;
   color: inherit;
@@ -44,7 +46,7 @@ h2 {
   background-color: #dbdfea;
 }
 
-.innderDivStyle {
+.innerDivStyle {
   margin: auto 0;
 }
 
