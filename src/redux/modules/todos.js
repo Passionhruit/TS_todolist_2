@@ -5,7 +5,6 @@ import uuid from "react-uuid";
 const ADD_LIST = "ADD_LIST";
 const DELETE_LIST = "DELETE_LIST";
 const MOVE_LIST = "MOVE_LIST";
-const GET_INFO = "GET_INFO";
 
 // Action Creator
 
@@ -32,17 +31,6 @@ export const moveList = (id) => {
   return {
     type: MOVE_LIST,
     payload: id,
-  };
-};
-
-export const getInfo = (id, title, note) => {
-  return {
-    type: GET_INFO,
-    payload: {
-      id,
-      title,
-      note,
-    },
   };
 };
 
@@ -79,10 +67,6 @@ const todos = (state = initialState, action) => {
             ? { ...value, isDone: !value.isDone }
             : value
         ),
-      };
-    case GET_INFO:
-      return {
-        state,
       };
     default:
       return state;
