@@ -8,6 +8,7 @@ import store from "./redux/config/configStore";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
+  // 리덕스 환경이 감싸줄 수 있도록 함. 모든 컴포넌트에서 App.js 내부의 todos 에 접근 가능
   <Provider store={store}>
     <App />
   </Provider>

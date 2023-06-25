@@ -36,38 +36,26 @@ export const moveList = (id) => {
 
 // Initial State
 
-const initialState = {
-  list: [
-    { id: uuid(), title: "수학", note: "구구단 외우기", isDone: false },
-    { id: uuid(), title: "국어", note: "받아쓰기", isDone: false },
-    { id: uuid(), title: "영어", note: "단어 외우기", isDone: true },
-    { id: uuid(), title: "과학", note: "실험하기", isDone: true },
-  ],
-};
-
+const initialState = [
+  { id: uuid(), title: "수학", note: "구구단 외우기", isDone: false },
+  { id: uuid(), title: "국어", note: "받아쓰기", isDone: false },
+  { id: uuid(), title: "영어", note: "단어 외우기", isDone: true },
+  { id: uuid(), title: "과학", note: "실험하기", isDone: true },
+];
 // Reducer
 
 const todos = (state = initialState, action) => {
   switch (action.type) {
     case ADD_LIST:
-      return {
-        ...state,
-        list: [...state.list, action.payload],
-      };
+      return [...state, action.payload];
     case DELETE_LIST:
-      return {
-        ...state,
-        list: state.list.filter((value) => value.id !== action.payload),
-      };
+      return state.filter((value) => value.id !== action.payload);
     case MOVE_LIST:
-      return {
-        ...state,
-        list: state.list.map((value) =>
-          value.id === action.payload
-            ? { ...value, isDone: !value.isDone }
-            : value
-        ),
-      };
+      return state.map((value) =>
+        value.id === action.payload
+          ? { ...value, isDone: !value.isDone }
+          : value
+      );
     default:
       return state;
   }

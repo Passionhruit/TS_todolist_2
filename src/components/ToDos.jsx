@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { deleteList, moveList } from "../redux/modules/todos";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const StLi = styled.li`
   list-style: none;
@@ -41,27 +42,54 @@ const StNote = styled.p`
   padding: 5px 0 0 5px;
 `;
 
-const ToDos = ({ value }) => {
+const StH2 = styled.h2`
+  margin-bottom: 15px;
+  color: white;
+`;
+
+const StInnerDiv = styled.div`
+  margin: auto 0;
+`;
+
+const StUl = styled.ul`
+  margin-left: 70px;
+  border: 10px;
+  width: 500px;
+  height: 600px;
+  float: left;
+`;
+
+const ToDos = ({ isDone }) => {
   const dispatch = useDispatch();
 
+  // 여기에서 store 에 접근하여 값을 읽어온다 : useSelector
+
+  const todos = useSelector((state) => {
+    return state.todos;
+  });
+
   return (
-    <StLi key={value.id}>
-      <StTitle>{value.title}</StTitle>
-      <StNote>{value.note}</StNote>
-      <StBtn
-        onClick={() => {
-          dispatch(deleteList(value.id));
-        }}
-      >
-        X
-      </StBtn>
-      <StBtn onClick={() => dispatch(moveList(value.id))}>
-        {value.isDone ? "취소" : "완료"}
-      </StBtn>
-      <StBtn>
-        <Link to={`/infos/${value.id}`}>더보기</Link>
-      </StBtn>
-    </StLi>
+    <StInnerDiv>
+      <StUl>
+        <StH2>{isDone ? "🎉 Done" : "✏️ Working"}</StH2>
+
+        {todos.map((value) =>
+          (value.isDone && isDone) || (!value.isDone && !isDone) ? (
+            <StLi key={value.id}>
+              <StTitle>{value.title}</StTitle>
+              <StNote>{value.note}</StNote>
+              <StBtn onClick={() => dispatch(deleteList(value.id))}>X</StBtn>
+              <StBtn onClick={() => dispatch(moveList(value.id))}>
+                {value.isDone ? "취소" : "완료"}
+              </StBtn>
+              <StBtn>
+                <Link to={`/infos/${value.id}`}>더보기</Link>
+              </StBtn>
+            </StLi>
+          ) : null
+        )}
+      </StUl>
+    </StInnerDiv>
   );
 };
 
