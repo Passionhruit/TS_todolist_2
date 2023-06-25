@@ -20,6 +20,7 @@ const StBtn = styled.button`
   background-color: #8294c4;
   border-style: none;
   border-radius: 5px;
+  margin: 0 auto;
   height: 25px;
   color: white;
   cursor: pointer;
@@ -33,15 +34,23 @@ const StH1 = styled.h1`
   text-align: center;
 `;
 
+const StH2 = styled.h2`
+  text-align: center;
+`;
+
+const StP = styled.p`
+  text-align: center;
+`;
+
 function Info() {
   const params = useParams();
   const navigate = useNavigate();
 
-  const list = useSelector((state) => {
-    return state.todos.list;
+  const todos = useSelector((state) => {
+    return state.todos;
   });
 
-  const data = list.find((value) => {
+  const data = todos.find((value) => {
     return value.id === params.id;
   });
   return (
@@ -50,8 +59,8 @@ function Info() {
       <StDiv>
         <StH1>TO DO LIST</StH1>
 
-        <h2>{data.title}</h2>
-        <p>{data.note}</p>
+        <StH2>{data.title}</StH2>
+        <StP>{data.note}</StP>
         <StBtn
           onClick={() => {
             navigate("/");
