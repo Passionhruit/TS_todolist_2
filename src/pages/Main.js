@@ -3,6 +3,7 @@ import styled from "styled-components";
 import GlobalStyle from "../GlobalStyle";
 import Form from "../components/Form";
 import ToDos from "../components/ToDos";
+import Header from "../components/Header";
 
 // styled componenets
 const StDiv = styled.div`
@@ -13,13 +14,6 @@ const StDiv = styled.div`
   margin: 0 auto;
 `;
 
-const StH1 = styled.h1`
-  color: white;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  text-align: center;
-`;
-
 function Main() {
   return (
     <>
@@ -27,7 +21,7 @@ function Main() {
         <GlobalStyle />
       </div>
       <StDiv>
-        <StH1>TO DO LIST</StH1>
+        <Header />
         <Form />
         <ToDos isDone={false} />
         <ToDos isDone={true} />
