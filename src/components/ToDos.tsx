@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { deleteList, moveList } from "../redux/modules/todos";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { RootState } from "../redux/config/configStore";
 
 const StLi = styled.li`
   list-style: none;
@@ -59,12 +60,16 @@ const StUl = styled.ul`
   float: left;
 `;
 
-const ToDos = ({ isDone }) => {
+type IsDone = {
+  isDone: boolean;
+};
+
+const ToDos = ({ isDone }: IsDone) => {
   const dispatch = useDispatch();
 
   // 여기에서 store 에 접근하여 값을 읽어온다 : useSelector
 
-  const todos = useSelector((state) => {
+  const todos = useSelector((state: RootState) => {
     return state.todos;
   });
 
@@ -73,7 +78,7 @@ const ToDos = ({ isDone }) => {
       <StUl>
         <StH2>{isDone ? "🎉 Done" : "✏️ Working"}</StH2>
 
-        {todos.map((value) =>
+        {todos.map((value: any) =>
           (value.isDone && isDone) || (!value.isDone && !isDone) ? (
             <StLi key={value.id}>
               <StTitle>{value.title}</StTitle>

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import GlobalStyle from "../GlobalStyle";
 import styled from "styled-components";
+import { RootState } from "../redux/config/configStore";
 
 const StDiv = styled.div`
   display: grid;
@@ -42,15 +43,22 @@ const StP = styled.p`
   text-align: center;
 `;
 
+type Value = {
+  id: string;
+  isDone: boolean;
+  note: string;
+  title: string;
+};
+
 function Info() {
   const params = useParams();
   const navigate = useNavigate();
 
-  const todos = useSelector((state) => {
+  const todos = useSelector((state: RootState) => {
     return state.todos;
   });
 
-  const data = todos.find((value) => {
+  const data = todos.find((value: Value) => {
     return value.id === params.id;
   });
   return (
@@ -59,8 +67,8 @@ function Info() {
       <StDiv>
         <StH1>TO DO LIST</StH1>
 
-        <StH2>{data.title}</StH2>
-        <StP>{data.note}</StP>
+        <StH2>{data?.title}</StH2>
+        <StP>{data?.note}</StP>
         <StBtn
           onClick={() => {
             navigate("/");

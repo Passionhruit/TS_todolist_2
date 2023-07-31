@@ -52,45 +52,41 @@ const StFormBtn = styled.button`
 `;
 
 function Form() {
-  const [title, setTitle] = useState("");
-  const [note, setNote] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [note, setNote] = useState<string>("");
   const dispatch = useDispatch();
+
+  const titleHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
+  };
+
+  const noteHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNote(e.target.value);
+  };
+
+  const addHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (title.length !== 0 && note.length !== 0) {
+      dispatch(addList(title, note));
+    } else {
+      alert("제목과 내용을 입력하세요.");
+    }
+    setTitle("");
+    setNote("");
+    e.preventDefault();
+  };
 
   return (
     <>
       <StForm>
         <StSpan>
           Title{"\u00A0"}
-          <StInput
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <StInput type="text" value={title} onChange={titleHandler} />
         </StSpan>
         <StSpan>
           Note{"\u00A0"}
-          <StInput
-            type="text"
-            value={note}
-            onChange={(e) => {
-              setNote(e.target.value);
-            }}
-          />
+          <StInput type="text" value={note} onChange={noteHandler} />
         </StSpan>
-        <StFormBtn
-          onClick={(e) => {
-            if (title.length !== 0 && note.length !== 0) {
-              dispatch(addList(title, note));
-            } else {
-              alert("제목과 내용을 입력하세요.");
-            }
-            setTitle("");
-            setNote("");
-            e.preventDefault();
-          }}
-        >
-          Add
-        </StFormBtn>
+        <StFormBtn onClick={addHandler}>Add</StFormBtn>
       </StForm>
     </>
   );
