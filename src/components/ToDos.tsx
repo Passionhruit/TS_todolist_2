@@ -73,6 +73,14 @@ const ToDos = ({ isDone }: IsDone) => {
     return state.todos;
   });
 
+  const deleteHandler = (id: string): void => {
+    dispatch(deleteList(id));
+  };
+
+  const moveHandler = (id: string): void => {
+    dispatch(moveList(id));
+  };
+
   return (
     <StInnerDiv>
       <StUl>
@@ -83,8 +91,8 @@ const ToDos = ({ isDone }: IsDone) => {
             <StLi key={value.id}>
               <StTitle>{value.title}</StTitle>
               <StNote>{value.note}</StNote>
-              <StBtn onClick={() => dispatch(deleteList(value.id))}>X</StBtn>
-              <StBtn onClick={() => dispatch(moveList(value.id))}>
+              <StBtn onClick={() => deleteHandler(value.id)}>X</StBtn>
+              <StBtn onClick={() => moveHandler(value.id)}>
                 {value.isDone ? "취소" : "완료"}
               </StBtn>
               <StBtn>
