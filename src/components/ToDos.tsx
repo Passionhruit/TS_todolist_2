@@ -86,7 +86,7 @@ const ToDos = ({ isDone }: IsDone) => {
       <StUl>
         <StH2>{isDone ? "🎉 Done" : "✏️ Working"}</StH2>
 
-        {todos.map((value: any) =>
+        {todos.map((value) =>
           (value.isDone && isDone) || (!value.isDone && !isDone) ? (
             <StLi key={value.id}>
               <StTitle>{value.title}</StTitle>

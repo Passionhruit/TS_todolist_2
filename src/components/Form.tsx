@@ -66,7 +66,7 @@ function Form() {
 
   const addHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (title.length !== 0 && note.length !== 0) {
-      dispatch(addList(title as string, note as string));
+      dispatch(addList(title, note));
     } else {
       alert("제목과 내용을 입력하세요.");
     }
